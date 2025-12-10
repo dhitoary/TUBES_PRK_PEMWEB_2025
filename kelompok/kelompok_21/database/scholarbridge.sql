@@ -56,3 +56,45 @@ INSERT INTO tutor (nama_lengkap, email, keahlian, pendidikan, status) VALUES
 ('Citra Lestari', 'citra.l@gmail.com', 'Kimia', 'S1 Kimia Murni Unila', 'Aktif'),
 ('Eko Prasetyo', 'eko.music@gmail.com', 'Musik', 'S1 Seni Musik Ibi Darmajaya', 'Aktif'),
 ('Rina Aulia', 'rina.aulia@yahoo.com', 'Ekonomi', 'S1 Akuntansi UBL (Univ. Bandar Lampung)', 'Aktif');
+
+-- Tabel untuk mata pelajaran yang ditawarkan tutor
+CREATE TABLE IF NOT EXISTS subjects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tutor_id INT NOT NULL,
+    subject_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tutor_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Tabel untuk pemesanan jadwal belajar
+CREATE TABLE IF NOT EXISTS bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    learner_id INT NOT NULL,
+    tutor_id INT NOT NULL,
+    subject_id INT NOT NULL,
+    booking_date DATE NOT NULL,
+    booking_time TIME NOT NULL,
+    status ENUM('pending', 'confirmed', 'completed', 'cancelled') DEFAULT 'pending',
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (learner_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (tutor_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE
+);
+
+-- Tabel untuk rating dan review dari learner
+CREATE TABLE IF NOT EXISTS reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT NOT NULL,
+    learner_id INT NOT NULL,
+    tutor_id INT NOT NULL,
+    rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    review_text TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE,
+    FOREIGN KEY (learner_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (tutor_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_booking_review (booking_id)
+);
