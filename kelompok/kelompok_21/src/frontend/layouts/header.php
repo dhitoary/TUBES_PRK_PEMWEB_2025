@@ -1,42 +1,56 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+<?php 
+if (!isset($assetPath)) {
+  $assetPath = "../../assets/";
 }
-
-$base_url_assets = "../../assets"; 
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <title>ScholarBridge - Bridging Students to Academic Excellence</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="<?php echo $base_url_assets; ?>/css/style.css">
+  <title>ScholarBridge</title>
 
-    </head>
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+  <!-- Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="<?php echo $assetPath ?>css/style.css">
+</head>
+
 <body>
-    <header style="background-color: var(--color-bg-white); box-shadow: var(--box-shadow); padding: 1rem 0;">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <a href="../public/landing_page.php" style="font-size: 1.5rem; font-weight: bold; color: var(--color-primary);">
-                🚀 ScholarBridge
-            </a>
-            
-            <nav>
-                <ul style="display: flex; gap: 20px;">
-                    <li><a href="../public/landing_page.php">Beranda</a></li>
-                    <li><a href="#">Cari Tutor</a></li>
-                    
-                    <?php if(isset($_SESSION['user_id'])): ?>
-                        <li><a href="../../../backend/auth/logout.php" style="color: var(--color-danger);">Logout</a></li>
-                    <?php else: ?>
-                        <li><a href="../auth/login.php" style="font-weight: bold;">Login / Daftar</a></li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <main style="min-height: 80vh; padding: 20px 0;">
+<!-- NAVBAR -->
+<nav class="sb-navbar shadow-sm">
+  <div class="container d-flex align-items-center justify-content-between">
+
+    <!-- Logo -->
+    <div class="d-flex align-items-center">
+      <img src="<?php echo $assetPath ?>img/logo.png" class="sb-logo">
+      <span class="sb-brand">ScholarBridge</span>
+    </div>
+
+    <!-- Menu -->
+    <ul class="sb-menu">
+      <li><a href="../public/landing_page.php" class="active">Beranda</a></li>
+      <li><a href="../public/search_result.php">Cari Tutor</a></li>
+      <li><a href="#">Kategori</a></li>
+      <li><a href="#">Testimoni</a></li>
+    </ul>
+
+    <!-- Action -->
+    <div class="d-flex gap-2">
+      <a href="../auth/form_login.php" class="sb-login">Masuk</a>
+      <a href="../auth/form_register.php" class="sb-daftar">Daftar</a>
+    </div>
+
+  </div>
+</nav>
