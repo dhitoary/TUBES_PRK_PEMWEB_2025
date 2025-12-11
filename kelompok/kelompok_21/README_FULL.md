@@ -178,6 +178,9 @@ Database **scholarbridge** terdiri dari 7 tabel utama:
 #### Detail Profil Tutor
 ![Detail Tutor](images/tutor-detail.png)
 
+#### Testimoni Siswa
+![Testimoni Siswa](images/testi.png)
+
 ---
 
 ### 👨‍🎓 Halaman Learner (Siswa)
@@ -215,6 +218,19 @@ Database **scholarbridge** terdiri dari 7 tabel utama:
 
 ---
 
+### 🔐 Halaman Auth
+
+#### Tampilan Login
+![Login](images/login.png)
+
+#### Tampilan Register Siswa
+![Register](images/regis-siswa.png)
+
+#### Tampilan Register Tutor
+![Register](images/regis-tutor.png)
+
+---
+
 ### 🔐 Halaman Admin
 
 #### Dashboard Admin
@@ -228,9 +244,6 @@ Database **scholarbridge** terdiri dari 7 tabel utama:
 
 #### Manajemen Tutor
 ![Manajemen Tutor](images/admin-tutor.png)
-
-#### Pengaturan Sistem
-![Pengaturan](images/admin-settings.png)
 
 ---
 
@@ -246,7 +259,7 @@ Database **scholarbridge** terdiri dari 7 tabel utama:
 1. **Clone Repository**
    ```bash
    cd C:\laragon\www
-   git clone https://github.com/username/TUBES_PRK_PEMWEB_2025.git
+   git clone https://github.com/dhitoary/TUBES_PRK_PEMWEB_2025.git
    cd TUBES_PRK_PEMWEB_2025/kelompok/kelompok_21
    ```
 
@@ -276,12 +289,12 @@ Database **scholarbridge** terdiri dari 7 tabel utama:
 - Password: `admin123`
 
 #### Tutor (Mahasiswa)
-- Email: `ilham.math@gmail.com`
-- Password: `tutor123`
+- Email: `zemverse@gmail.com`
+- Password: `password`
 
 #### Learner (Siswa)
-- Email: `rizky.p@gmail.com`
-- Password: `siswa123`
+- Email: `dhito@gmail.com`
+- Password: `password`
 
 ---
 
@@ -421,14 +434,6 @@ Project ini dibuat untuk keperluan akademik **Praktikum Pemrograman Web** - Univ
   - Chart.js (https://www.chartjs.org)
   - PHP Documentation (https://www.php.net)
   - MySQL Documentation (https://dev.mysql.com/doc)
-
----
-
-## 📞 Kontak
-
-Untuk pertanyaan atau feedback, silakan hubungi:
-- **Email:** [email kelompok]
-- **GitHub:** [link repository]
 
 ---
 
