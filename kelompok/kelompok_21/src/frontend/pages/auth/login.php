@@ -11,11 +11,10 @@ if (file_exists($dbPath)) {
 }
 
 if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) {
-    // Redirect based on role
     if ($_SESSION['user_role'] === 'admin') {
         header("Location: ../admin/dashboard.php");
     } else if ($_SESSION['user_role'] === 'learner') {
-        header("Location: ../public/landing_page.php");
+        header("Location: ../learner/dashboard_siswa.php");
     } else if ($_SESSION['user_role'] === 'tutor') {
         header("Location: ../public/landing_page.php");
     }
@@ -71,9 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['user_role'] = $user['role'];
                     $_SESSION['user_status'] = $user['status'];
 
-                    // Redirect based on role
                     if ($user['role'] === 'admin') {
                         header("Location: ../admin/dashboard.php");
+                    } else if ($user['role'] === 'learner') {
+                        header("Location: ../learner/dashboard_siswa.php");
+                    } else if ($user['role'] === 'tutor') {
+                        header("Location: ../public/landing_page.php");
                     } else {
                         header("Location: ../public/landing_page.php");
                     }

@@ -109,3 +109,132 @@ INSERT INTO tutor_mapel (tutor_id, nama_mapel, jenjang) VALUES
 (8, 'Ekonomi', 'SMA'),
 (8, 'Akuntansi', 'SMA'),
 (8, 'IPS', 'SMP');
+
+-- ========================================
+-- TABEL BOOKING SYSTEM
+-- ========================================
+
+-- Tabel subjects: mata pelajaran yang ditawarkan tutor dengan harga spesifik
+CREATE TABLE IF NOT EXISTS subjects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tutor_id INT NOT NULL,
+    subject_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tutor_id) REFERENCES tutor(id) ON DELETE CASCADE
+);
+
+-- Insert data subjects berdasarkan tutor yang ada
+INSERT INTO subjects (tutor_id, subject_name, price, description) VALUES 
+-- Tutor 1: M. Ilham Saputra (Matematika)
+(1, 'Matematika SD', 120000, 'Matematika untuk siswa SD kelas 1-6, fokus pada pemahaman konsep dasar'),
+(1, 'Matematika SMP', 150000, 'Matematika untuk siswa SMP kelas 7-9, persiapan ujian sekolah'),
+(1, 'Matematika SMA & UTBK', 180000, 'Matematika SMA kelas 10-12 dan persiapan UTBK, OSN'),
+-- Tutor 2: Sarah Amelia (Fisika)
+(2, 'Fisika SMP', 150000, 'Fisika dasar untuk siswa SMP dengan metode eksperimen sederhana'),
+(2, 'Fisika SMA & UTBK', 200000, 'Fisika SMA dan persiapan UTBK, fokus pada pemecahan soal'),
+(2, 'IPA SD', 100000, 'IPA terpadu untuk siswa SD'),
+-- Tutor 3: Ahmad Fauzi (Bahasa Inggris)
+(3, 'English for Kids (SD)', 100000, 'Bahasa Inggris dasar untuk anak-anak dengan metode fun learning'),
+(3, 'English SMP', 120000, 'Grammar, reading, dan conversation untuk siswa SMP'),
+(3, 'English SMA', 140000, 'Bahasa Inggris SMA dan persiapan ujian'),
+(3, 'TOEFL Preparation', 200000, 'Persiapan TOEFL iBT dan ITP untuk kuliah/beasiswa'),
+-- Tutor 4: Dinda Pertiwi (Koding)
+(4, 'Python untuk Pemula', 180000, 'Belajar Python dari nol hingga bisa membuat project'),
+(4, 'Web Development', 220000, 'HTML, CSS, JavaScript untuk membuat website'),
+(4, 'Informatika SMA', 160000, 'Mata pelajaran Informatika untuk siswa SMA'),
+-- Tutor 5: Bayu Nugroho (Biologi)
+(5, 'Biologi SMP', 150000, 'Biologi untuk siswa SMP dengan praktikum virtual'),
+(5, 'Biologi SMA', 180000, 'Biologi SMA dan persiapan masuk kedokteran'),
+-- Tutor 6: Citra Lestari (Kimia)
+(6, 'Kimia SMP', 140000, 'Kimia dasar untuk siswa SMP'),
+(6, 'Kimia SMA & UTBK', 180000, 'Kimia SMA dan persiapan UTBK dengan metode aplikatif'),
+-- Tutor 7: Eko Prasetyo (Musik)
+(7, 'Kursus Gitar', 120000, 'Belajar gitar akustik/elektrik dari dasar hingga mahir'),
+(7, 'Kursus Piano', 150000, 'Piano untuk pemula hingga intermediate'),
+(7, 'Vocal Training', 100000, 'Latihan vokal dan teknik bernyanyi'),
+-- Tutor 8: Rina Aulia (Ekonomi)
+(8, 'Ekonomi SMA', 150000, 'Ekonomi mikro dan makro untuk siswa SMA'),
+(8, 'Akuntansi SMA', 160000, 'Akuntansi dasar dan lanjutan untuk SMA'),
+(8, 'IPS SMP', 120000, 'Ilmu Pengetahuan Sosial untuk siswa SMP');
+
+-- Tabel bookings: pemesanan jadwal belajar
+CREATE TABLE IF NOT EXISTS bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    learner_id INT NOT NULL,
+    tutor_id INT NOT NULL,
+    subject_id INT NOT NULL,
+    booking_date DATE NOT NULL,
+    booking_time TIME NOT NULL,
+    duration INT DEFAULT 60 COMMENT 'Durasi dalam menit',
+    status ENUM('pending', 'confirmed', 'completed', 'cancelled') DEFAULT 'pending',
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (learner_id) REFERENCES siswa(id) ON DELETE CASCADE,
+    FOREIGN KEY (tutor_id) REFERENCES tutor(id) ON DELETE CASCADE,
+    FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE
+);
+
+-- Insert sample bookings
+INSERT INTO bookings (learner_id, tutor_id, subject_id, booking_date, booking_time, duration, status, notes) VALUES
+-- Booking dari Rizky Pratama (siswa_id=1) - SMA
+(1, 1, 3, '2025-12-15', '14:00:00', 90, 'confirmed', 'Persiapan ujian matematika semester, fokus pada integral dan turunan'),
+(1, 2, 5, '2025-12-18', '16:00:00', 60, 'pending', 'Belajar fisika gelombang dan bunyi'),
+-- Booking dari Alya Kinanti (siswa_id=2) - SD
+(2, 3, 7, '2025-12-14', '10:00:00', 60, 'completed', 'English conversation practice, belajar vocabulary harian'),
+(2, 2, 6, '2025-12-20', '15:00:00', 60, 'confirmed', 'Belajar IPA tentang sistem tata surya'),
+-- Booking dari Andreas Kurniawan (siswa_id=3) - SMP
+(3, 5, 14, '2025-12-16', '13:00:00', 90, 'confirmed', 'Biologi sel dan jaringan, persiapan ulangan'),
+(3, 8, 23, '2025-12-22', '11:00:00', 60, 'pending', 'IPS - Geografi Indonesia'),
+-- Booking dari Siti Fatimah (siswa_id=4) - SMA
+(4, 8, 21, '2025-12-17', '14:30:00', 60, 'confirmed', 'Ekonomi mikro dan perilaku konsumen'),
+(4, 8, 22, '2025-12-19', '16:00:00', 90, 'pending', 'Akuntansi - jurnal umum dan buku besar'),
+-- Booking dari Dinda Puspita (siswa_id=6) - SMP
+(6, 3, 8, '2025-12-13', '09:00:00', 60, 'completed', 'Grammar dasar - tenses dan sentence structure'),
+(6, 7, 18, '2025-12-21', '10:00:00', 60, 'confirmed', 'Belajar kunci dasar gitar dan lagu sederhana'),
+-- Booking dari Fajar Nugraha (siswa_id=7) - SMA
+(7, 4, 11, '2025-12-23', '15:00:00', 90, 'pending', 'Belajar Python - variables, loops, dan functions'),
+(7, 2, 5, '2025-12-25', '13:00:00', 60, 'pending', 'Fisika - gerak parabola dan hukum Newton'),
+-- Booking dari Grace Natalia (siswa_id=8) - SD
+(8, 7, 19, '2025-12-24', '11:00:00', 60, 'confirmed', 'Piano pemula - belajar not balok dan lagu anak');
+
+-- Tabel reviews: rating dan review dari learner
+CREATE TABLE IF NOT EXISTS reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT NOT NULL,
+    learner_id INT NOT NULL,
+    tutor_id INT NOT NULL,
+    rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    review_text TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE,
+    FOREIGN KEY (learner_id) REFERENCES siswa(id) ON DELETE CASCADE,
+    FOREIGN KEY (tutor_id) REFERENCES tutor(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_booking_review (booking_id)
+);
+
+-- Insert sample reviews untuk booking yang sudah completed
+INSERT INTO reviews (booking_id, learner_id, tutor_id, rating, review_text) VALUES
+(3, 2, 3, 5, 'Pak Ahmad sangat sabar dalam mengajar. Metode conversation practice-nya sangat membantu meningkatkan kepercayaan diri saya berbahasa Inggris. Highly recommended! 👍'),
+(9, 6, 3, 5, 'Penjelasan grammar sangat jelas dan mudah dipahami. Kakak Fauzi memberikan banyak contoh praktis yang langsung bisa diaplikasikan. Terima kasih!');
+
+-- Update rating tutor berdasarkan reviews yang ada
+UPDATE tutor t 
+SET rating = (
+    SELECT COALESCE(ROUND(AVG(r.rating), 1), t.rating)
+    FROM reviews r 
+    WHERE r.tutor_id = t.id
+)
+WHERE EXISTS (
+    SELECT 1 FROM reviews r WHERE r.tutor_id = t.id
+);
+
+-- Create indexes untuk performance
+CREATE INDEX idx_bookings_learner ON bookings(learner_id);
+CREATE INDEX idx_bookings_tutor ON bookings(tutor_id);
+CREATE INDEX idx_bookings_status ON bookings(status);
+CREATE INDEX idx_bookings_date ON bookings(booking_date);
+CREATE INDEX idx_reviews_tutor ON reviews(tutor_id);
+CREATE INDEX idx_subjects_tutor ON subjects(tutor_id);

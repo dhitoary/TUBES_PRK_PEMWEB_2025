@@ -17,9 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($row = mysqli_fetch_assoc($result)) {
         if (password_verify($password, $row['password'])) {
             $_SESSION['user_id'] = $row['id'];
+            $_SESSION['user_name'] = $row['name'];
             $_SESSION['name'] = $row['name'];
+            $_SESSION['user_role'] = $row['role'];
             $_SESSION['role'] = $row['role'];
             $_SESSION['email'] = $row['email'];
+            $_SESSION['is_logged_in'] = true;
 
             if ($row['role'] == 'admin') {
                 header("Location: ../../frontend/pages/admin/dashboard.php");
