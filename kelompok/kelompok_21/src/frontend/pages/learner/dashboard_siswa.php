@@ -989,35 +989,6 @@ window.onclick = function(event) {
                 </div>
             <?php endif; ?>
         </div>
-
-        <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); margin-bottom: 30px;">
-            <h3 style="margin: 0 0 20px 0; color: #0C4A60; display: flex; align-items: center; gap: 10px;">
-                <span>📝</span>
-                <span>Profil Siswa</span>
-            </h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                    <p style="margin: 0; color: #666; font-size: 14px; margin-bottom: 5px;">NIM</p>
-                    <p style="margin: 0; font-weight: 600; color: #333;"><?php echo $siswa_data['nim']; ?></p>
-                </div>
-                <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                    <p style="margin: 0; color: #666; font-size: 14px; margin-bottom: 5px;">Sekolah</p>
-                    <p style="margin: 0; font-weight: 600; color: #333;"><?php echo htmlspecialchars($siswa_data['sekolah'] ?? 'Belum diisi'); ?></p>
-                </div>
-                <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                    <p style="margin: 0; color: #666; font-size: 14px; margin-bottom: 5px;">Jenjang & Kelas</p>
-                    <p style="margin: 0; font-weight: 600; color: #333;"><?php echo $siswa_data['jenjang'] . ' - ' . $siswa_data['kelas']; ?></p>
-                </div>
-                <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                    <p style="margin: 0; color: #666; font-size: 14px; margin-bottom: 5px;">Email</p>
-                    <p style="margin: 0; font-weight: 600; color: #333; font-size: 14px;"><?php echo htmlspecialchars($siswa_data['email']); ?></p>
-                </div>
-                <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; grid-column: span 2;">
-                    <p style="margin: 0; color: #666; font-size: 14px; margin-bottom: 5px;">Minat Belajar</p>
-                    <p style="margin: 0; font-weight: 600; color: #333;"><?php echo htmlspecialchars($siswa_data['minat'] ?? 'Belum diisi'); ?></p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
