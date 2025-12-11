@@ -50,8 +50,8 @@ $userRole = $_SESSION['user_role'] ?? '';
     <ul class="sb-menu">
       <li><a href="../public/landing_page.php">Beranda</a></li>
       <li><a href="../public/search_result.php">Cari Tutor</a></li>
-      <li><a href="#kategori">Kategori</a></li>
-      <li><a href="#testimoni">Testimoni</a></li>
+      <li><a href="../public/categories.php">Kategori</a></li>
+      <li><a href="../public/testimoni.php">Testimoni</a></li>
       <?php if ($isLoggedIn && $userRole === 'tutor'): ?>
       <li><a href="#kelas-saya">Kelas Saya</a></li>
       <?php endif; ?>
