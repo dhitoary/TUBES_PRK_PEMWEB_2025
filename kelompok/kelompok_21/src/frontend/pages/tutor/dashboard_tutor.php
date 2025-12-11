@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Tutor - ScholarBridge</title>
+    <title>Dashboard Tutor</title>
 
-    <!-- BOOTSTRAP 5 -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- ICON -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         :root {
@@ -30,211 +27,165 @@
 
         body {
             background-color: var(--light-bg);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        .page-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--dark-color);
+        .navbar {
+            background-color: var(--secondary-color);
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .nav-link:hover {
+            color: var(--accent-color) !important;
         }
 
-        .featured-card {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            border-radius: var(--border-radius-lg);
-            padding: 30px;
-            color: white;
-            box-shadow: var(--card-shadow);
-        }
-
-        .featured-tag {
-            background-color: rgba(255,255,255,0.25);
-            padding: 4px 10px;
-            border-radius: 0.5rem;
-            font-size: 12px;
-        }
-
-        .tutor-card {
-            border-radius: var(--border-radius-md);
-            box-shadow: var(--card-shadow);
-            transition: 0.2s;
+        .dashboard-card {
             background: white;
-        }
-        .tutor-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .subject-tag {
-            background-color: #e6f1f7;
-            color: var(--secondary-color);
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 11px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
         }
 
-        .btn-primary-custom {
+        .btn-primary {
             background-color: var(--primary-color);
-            border-color: var(--primary-color);
+            border: none;
         }
-        .btn-primary-custom:hover {
+        .btn-primary:hover {
             background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
         }
 
     </style>
 </head>
+
 <body>
 
-<!-- ================= HEADER ================= -->
-<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 px-4">
-    <a class="navbar-brand fw-bold" href="#">
-        <img src="https://cdn-icons-png.flaticon.com/512/3917/3917754.png" width="32" class="me-2">
-        ScholarBridge
-    </a>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">TutorConnect</a>
 
-    <div class="ms-auto d-flex align-items-center gap-3">
-        <i class="fa-regular fa-bell fa-lg"></i>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="d-flex align-items-center">
-            <img src="https://i.pravatar.cc/150?img=12" width="40" class="rounded-circle me-2">
-            <div>
-                <div class="fw-semibold">Andi Pratama</div>
-                <div class="text-muted" style="font-size: 13px;">Siswa SMA</div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+
+                    <!-- Tombol direct ke Edit Profile -->
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-warning" href="edit_profile.php">Edit Profile</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kelas Saya</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
-<!-- ================= CONTENT ================= -->
-<div class="container py-5">
+    <!-- MAIN CONTENT -->
+    <div class="container py-4">
 
-    <div class="mb-4 d-flex justify-content-between align-items-center">
-        <h2 class="page-title">Daftar Tutor</h2>
+        <h2 class="fw-bold text-secondary mb-4">Dashboard Tutor</h2>
 
-        <!-- Search Bar -->
-        <div class="input-group" style="width: 350px;">
-            <span class="input-group-text bg-white"><i class="fa fa-search"></i></span>
-            <input type="text" class="form-control" placeholder="Cari tutor, mata pelajaran...">
-        </div>
-    </div>
+        <div class="row g-4">
 
-    <!-- FEATURED TUTOR -->
-    <div class="featured-card mb-5 d-flex align-items-center">
+            <!-- PROFILE SIDEBAR -->
+            <div class="col-md-4">
+                <div class="dashboard-card text-center">
 
-        <img src="https://i.pravatar.cc/150?img=65" width="90" height="90" class="rounded-circle border border-3 border-white">
+                    <img src="https://i.pravatar.cc/150?img=46"
+                         class="rounded-circle mb-3 shadow"
+                         width="120">
 
-        <div class="ms-4">
-            <div class="featured-tag">Top Rated Tutor</div>
-            <h3 class="mt-2 fw-bold">Dr. Sarah Mitchell</h3>
+                    <h5 class="fw-bold">Nama Tutor</h5>
+                    <p class="text-muted">Matematika • Fisika</p>
 
-            <div class="d-flex align-items-center mb-1">
-                ⭐⭐⭐⭐⭐ <span class="ms-2">(284 ulasan)</span>
-            </div>
+                    <span class="badge bg-success">Verified Tutor</span>
 
-            <div class="d-flex gap-2 mt-2">
-                <div class="subject-tag">Matematika</div>
-                <div class="subject-tag">Fisika</div>
-                <div class="subject-tag">Persiapan SAT</div>
-            </div>
-        </div>
+                    <hr>
 
-        <div class="ms-auto fs-4 fw-bold">
-            Rp 180.000/jam
-        </div>
-    </div>
+                    <p class="text-muted">Domisili: Jakarta Selatan</p>
+                    <p class="text-muted">Mengajar: Online & Offline</p>
 
-
-    <!-- FILTER -->
-    <div class="d-flex gap-3 mb-4">
-        <select class="form-select w-auto">
-            <option>Semua Subjek</option>
-            <option>Matematika</option>
-            <option>Bahasa Inggris</option>
-        </select>
-
-        <select class="form-select w-auto">
-            <option>Harga Berapa Saja</option>
-            <option>Rp 50k - Rp 100k</option>
-            <option>Rp 100k - Rp 200k</option>
-        </select>
-
-        <select class="form-select w-auto">
-            <option>Tingkat Pengalaman</option>
-            <option>Pemula</option>
-            <option>Profesional</option>
-        </select>
-
-        <button class="btn btn-link text-decoration-none">Reset Filter</button>
-    </div>
-
-
-    <!-- LIST TUTOR -->
-    <div class="row g-4">
-
-        <!-- CARD EXAMPLE -->
-        <?php 
-        $tutors = [
-            [
-                "name" => "Emily Chen",
-                "rating" => "4.8",
-                "reviews" => "156",
-                "city" => "Jakarta",
-                "price" => "45000",
-                "subjects" => ["English", "Writing", "Literature"],
-                "img" => "https://i.pravatar.cc/150?img=47"
-            ],
-            [
-                "name" => "Marcus Johnson",
-                "rating" => "4.9",
-                "reviews" => "203",
-                "city" => "Bandung",
-                "price" => "55000",
-                "subjects" => ["Coding", "JavaScript", "Python"],
-                "img" => "https://i.pravatar.cc/150?img=59"
-            ]
-        ];
-
-        foreach ($tutors as $tutor): ?>
-        
-        <div class="col-md-6">
-            <div class="tutor-card p-4 d-flex">
-
-                <img src="<?= $tutor["img"] ?>" width="80" height="80" class="rounded-circle">
-
-                <div class="ms-3 flex-grow-1">
-
-                    <div class="d-flex justify-content-between">
-                        <h5 class="fw-bold"><?= $tutor["name"] ?></h5>
-                        <span class="fw-semibold">Rp <?= number_format($tutor["price"],0,",",".") ?>/jam</span>
-                    </div>
-
-                    <div class="text-warning small">
-                        ⭐ <?= $tutor["rating"] ?> <span class="text-muted">(<?= $tutor["reviews"] ?> ulasan)</span>
-                    </div>
-
-                    <div class="text-muted small mb-2">📍 <?= $tutor["city"] ?></div>
-
-                    <div class="d-flex flex-wrap gap-2 mb-2">
-                        <?php foreach ($tutor["subjects"] as $s): ?>
-                            <span class="subject-tag"><?= $s ?></span>
-                        <?php endforeach; ?>
-                    </div>
-
-                    <a href="#" class="btn btn-primary-custom mt-2 w-100">Lihat Profil</a>
-
+                    <a href="edit_profile.php" class="btn btn-primary w-100 mt-2">Edit Profile</a>
                 </div>
             </div>
+
+
+            <!-- MAIN DASHBOARD -->
+            <div class="col-md-8">
+
+                <!-- KONFIRMASI SISWA -->
+                <div class="dashboard-card mb-4">
+                    <h5 class="fw-bold mb-3">Konfirmasi Pendaftaran Siswa</h5>
+
+                    <div class="d-flex justify-content-between align-items-center p-3 border rounded mb-3">
+                        <div>
+                            <strong>Ahmad Fikri</strong><br>
+                            <small class="text-muted">Kelas: Matematika Dasar</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-success btn-sm">Setujui</button>
+                            <button class="btn btn-danger btn-sm">Tolak</button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center p-3 border rounded">
+                        <div>
+                            <strong>Siti Rahma</strong><br>
+                            <small class="text-muted">Kelas: Fisika SMA</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-success btn-sm">Setujui</button>
+                            <button class="btn btn-danger btn-sm">Tolak</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- TAMBAH KELAS -->
+                <div class="dashboard-card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold">Kelas Saya</h5>
+                        <a href="tambah_kelas.php" class="btn btn-primary btn-sm">Tambah Kelas</a>
+                    </div>
+
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between">
+                            Matematika Dasar
+                            <span class="badge bg-secondary">12 Siswa</span>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            Fisika SMA
+                            <span class="badge bg-secondary">8 Siswa</span>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- UPDATE PROFIL QUICK BUTTON -->
+                <div class="dashboard-card text-center">
+                    <h5 class="fw-bold">Anda Ingin Memperbarui Profil?</h5>
+                    <p class="text-muted mb-3">Perbarui informasi pribadi dan pengalaman Anda.</p>
+                    <a href="edit_profile.php" class="btn btn-primary px-4">Edit Sekarang</a>
+                </div>
+
+            </div>
         </div>
-
-        <?php endforeach; ?>
-
     </div>
 
-</div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
