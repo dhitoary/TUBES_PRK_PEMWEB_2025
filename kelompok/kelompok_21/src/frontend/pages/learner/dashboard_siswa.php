@@ -796,6 +796,22 @@ window.onclick = function(event) {
             </div>
         </div>
 
+        <?php if (isset($_GET['status']) && $_GET['status'] == 'booking_success'): ?>
+            <div class="alert alert-success">
+                ✅ Booking berhasil dibuat! Menunggu konfirmasi dari tutor.
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['error'])): ?>
+            <div class="alert alert-error">
+                <?php
+                $error = $_GET['error'];
+                if ($error == 'empty_fields') echo "Harap lengkapi semua field yang wajib diisi.";
+                else echo "Terjadi kesalahan. Silakan coba lagi.";
+                ?>
+            </div>
+        <?php endif; ?>
+
         <div class="stats-grid">
             <div class="stat-card stat-primary">
                 <div class="stat-card-header">

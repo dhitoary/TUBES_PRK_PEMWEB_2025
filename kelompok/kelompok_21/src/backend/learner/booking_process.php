@@ -2,7 +2,7 @@
 session_start();
 require_once '../../config/database.php';
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 'learner') {
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'learner') {
     header("Location: ../../frontend/pages/auth/login.php?error=unauthorized");
     exit();
 }
@@ -12,7 +12,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tutor_id   = htmlspecialchars($_POST['tutor_id'] ?? '');
     $subject_id = htmlspecialchars($_POST['subject_id'] ?? '');
     $date       = htmlspecialchars($_POST['booking_date'] ?? '');
-    $learner_id = $_SESSION['user_id'];
+    
+    // Get siswa_id from email (konsisten dengan dashboard_siswa.php)
+    $user_email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : $_SESSION['email'];
+    $siswa_query = "SELECT id FROM siswa WHERE email = '$user_email' LIMIT 1";
+    $siswa_result = mysqli_query($conn, $siswa_query);
+    $siswa_data = mysqli_fetch_assoc($siswa_result);
+    
+    if (!$siswa_data) {
+        header("Location: ../../frontend/pages/learner/dashboard_siswa.php?error=invalid_user");
+        exit();
+    }
+    
+    $learner_id = $siswa_data['id'];
 
     if (empty($tutor_id) || empty($subject_id) || empty($date)) {
         header("Location: ../../frontend/pages/learner/dashboard_siswa.php?error=empty_fields");
@@ -22,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validasi tambahan untuk date dan time
     $time = htmlspecialchars($_POST['booking_time'] ?? '');
     $notes = htmlspecialchars($_POST['notes'] ?? '');
+    $duration = intval($_POST['duration'] ?? 60); // Default 60 menit jika tidak ada
     
     if (empty($time)) {
         header("Location: ../../frontend/pages/learner/booking.php?error=empty_time&tutor_id=" . $tutor_id . "&subject_id=" . $subject_id);
@@ -50,8 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $time_escaped = mysqli_real_escape_string($conn, $time);
     $notes_escaped = mysqli_real_escape_string($conn, $notes);
     
-    $query = "INSERT INTO bookings (learner_id, tutor_id, subject_id, booking_date, booking_time, status, notes) 
-              VALUES ('$learner_id', '$tutor_id_escaped', '$subject_id_escaped', '$date_escaped', '$time_escaped', 'pending', '$notes_escaped')";
+    $query = "INSERT INTO bookings (learner_id, tutor_id, subject_id, booking_date, booking_time, duration, status, notes) 
+              VALUES ('$learner_id', '$tutor_id_escaped', '$subject_id_escaped', '$date_escaped', '$time_escaped', '$duration', 'pending', '$notes_escaped')";
     
     if (mysqli_query($conn, $query)) {
         header("Location: ../../frontend/pages/learner/dashboard_siswa.php?status=booking_success");
